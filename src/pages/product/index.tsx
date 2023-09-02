@@ -19,9 +19,10 @@ const ProductPage = () => {
   },[isLogin, push])
 
   const { data, error, isLoading } = useSWR("/api/product", fetcher)
-  console.log(data)
-  console.log(error)
-  console.log(isLoading)
+  //Debugging
+  // console.log(data)
+  // console.log(error)
+  // console.log(isLoading)
 
   // useEffect(()=>{
   //   fetch('api/product')
