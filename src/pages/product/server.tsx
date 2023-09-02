@@ -1,5 +1,5 @@
 import ProductView from "@/views/product/Main"
-import { productsType } from "../../../types/product.type"
+import { productsType } from "@/types/product.type"
 
 const ProductPage = (props : {products : productsType[]} ) => {
 

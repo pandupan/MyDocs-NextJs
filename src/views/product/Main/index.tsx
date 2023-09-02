@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { productsType } from "../../../../types/product.type"
+import { productsType } from "@/types/product.type"
 import styles from "./Product.module.scss"
 
 
