@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { productsType } from "@/types/product.type"
 import styles from "./Product.module.scss"
+import Link from "next/link"
 
 
 
@@ -18,7 +19,8 @@ const ProductView = ({products}:{products:productsType[]}) => {
       { products.length > 0 ? (
           <>
             { products.map((product:productsType)=>(
-                <div 
+                <Link 
+                  href={`/product/${product.id}`}
                   key={product.id}
                   className={styles.product__content__item}  
                 >
@@ -33,7 +35,7 @@ const ProductView = ({products}:{products:productsType[]}) => {
                       currency:"IDR"
                     })}
                   </p>
-                </div>
+                </Link>
               ))
             }
           </>
