@@ -16,7 +16,8 @@ const RegisterView = () => {
     const data = {
       email : event.target.email.value,
       password : event.target.password.value,
-      fullname : event.target.fullname.value
+      fullname : event.target.fullname.value,
+      role : event.target.fullname.role
     }
     const result = await fetch("/api/register", {
       method: "POST",

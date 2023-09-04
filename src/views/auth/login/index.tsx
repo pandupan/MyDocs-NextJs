@@ -1,22 +1,113 @@
-import Link from "next/link"
-import { useRouter } from "next/router"
-import Style from './Login.module.scss'
+'use client'
 
-const LoginViews = () => {
-  const { push } = useRouter() 
+import Link from 'next/link'
+import styles from './Login.module.scss'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { signIn } from 'next-auth/react'
 
-  const handleLogin = () =>{
-    // router.push('/product')
-    push('/product')
+const LoginView = () => {
+  const [isLoading, setIsLoading] = useState(false)
+  const[error, setError] = useState("")
+  const {push, query} = useRouter()
+  const callbackUrl : any = query.callbackUrl || "/";
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault()
+    setError("")
+    setIsLoading(true)
+    const data = {
+      email : event.target.email.value,
+      password : event.target.password.value,
+      // fullname : event.target.fullname.value
+    }
+    // const result = await fetch("/api/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify(data)
+    // })
+
+    // if(result.status === 200){
+    //   event.target.reset();
+    //   setIsLoading(false)
+    //   push('/auth/login')
+    // } else {
+    //   setIsLoading(false)
+    //   setError(result.status === 400 ? "Email already exist" : "")
+
+    // }
+
+    try {
+      const res = await signIn('credentials', {
+        redirect: false,
+        email: event.target.email.value,
+        password: event.target.password.value,
+        callbackUrl
+      })
+
+      if(!res?.error){
+        push(callbackUrl)
+        setIsLoading(false)
+      }else {
+        setIsLoading(false)
+        setError("Email atau Password Salah")
+      }
+
+    } catch (error : any) {
+        setIsLoading(false)
+        setError("Email atau Password Salah")
+      
+    }
   }
 
   return (
-    <div className={Style.login}>
-      <h1 style={{ color: 'red' }} className="text-7xl font-bold">Login Page</h1>
-      <button onClick={() => handleLogin()}>Login</button>
-      Belum punya akun resgistrasi <Link href={'/auth/register'}>Disinii!!</Link>
+    <div className={styles.login}>
+       <h1 className={styles.login__title}>Login Page</h1>
+       {error && <p className={styles.login__error}>{error}</p>}
+      <div className={styles.login__form}>
+      <form onSubmit={handleSubmit}>
+        {/* <div className={styles.login__form__item}>
+          <label htmlFor='fullname' className={styles.login__form__item__label}>Fullname</label>
+          <input 
+            type="fullname" 
+            id="fullname" 
+            name="fullname"
+            placeholder='fullname'
+            className={styles.login__form__item__input}
+          />
+        </div> */}
+        <div className={styles.login__form__item}>
+          <label htmlFor='email' className={styles.login__form__item__label}>Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email"
+            placeholder='email'
+            className={styles.login__form__item__input}
+          />
+        </div>
+        <div className={styles.login__form__item}>
+          <label htmlFor='password' className={styles.login__form__item__label}>Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password"
+            placeholder='password'
+            className={styles.login__form__item__input}
+          />
+        </div>
+        <button
+          className={styles.login__form__item__button}
+          type='submit'
+          disabled={isLoading}
+        >{isLoading?"Loading...":"Login"}</button>
+        <p className={styles.login__link}>Belum Punya akun ? <Link href={'/auth/login'}>Register</Link></p>
+      </form>
+      </div>
     </div>
   )
 }
 
-export default LoginViews
+export default LoginView
