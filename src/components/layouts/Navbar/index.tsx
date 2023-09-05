@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Style from './Navbar.module.css'
 
@@ -15,6 +16,11 @@ const Navbar = () => {
       ) : (
         <button onClick={()=>signIn()}>Sign In</button>
       )}
+      <div>
+      {data?.user?.image && 
+           <img className='rounded-full w-[25px] h-[20px]' src={data.user.image} alt={data.user.fullname}/>
+        }
+      </div>
     </div>
   )
 }

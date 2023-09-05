@@ -5,6 +5,7 @@ import styles from './Login.module.scss'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/react'
+import { redirect } from 'next/dist/server/api-utils'
 
 const LoginView = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -105,6 +106,10 @@ const LoginView = () => {
         >{isLoading?"Loading...":"Login"}</button>
         <p className={styles.login__link}>Belum Punya akun ? <Link href={'/auth/login'}>Register</Link></p>
       </form>
+          <button 
+            onClick={() => signIn("google",{callbackUrl,redirect:false})}
+            className='p-3 w-[100%] bg-slate-400 mt-3 text-white'
+          >Sign With Google</button>
       </div>
     </div>
   )
