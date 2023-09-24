@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "lint": "next lint",
     "test": "jest --passWithNoTests -u",
     "test:cover": "npm run test -- --coverage",
