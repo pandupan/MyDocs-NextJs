@@ -1,7 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 import { productsType } from "@/types/product.type"
 import styles from "./Product.module.scss"
 import Link from "next/link"
+import Image from "next/image"
 
 
 
@@ -25,7 +25,13 @@ const ProductView = ({products}:{products:productsType[]}) => {
                   className={styles.product__content__item}  
                 >
                   <div className={styles.product__content__item__image}>
-                    <img src={product.image} alt={product.name} />
+                    {/* <img src={product.image} alt={product.name} /> */}
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      width={200}
+                      height={200}
+                    />
                   </div>
                   <h4 className={styles.product__content__item__name}>{product.name}</h4>
                   <p className={styles.product__content__item__category}>{product.category}</p>

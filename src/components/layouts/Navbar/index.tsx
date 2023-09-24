@@ -1,13 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Style from './Navbar.module.css'
+import Script from 'next/script'
 
 const Navbar = () => {
   const {data}: any = useSession()
-  console.log(data)
+
+
   return (
     <div className={Style.navbar}>
-      <div className='big'>Navbar</div>
+      <div className='big' id='title'>Navbar</div>
+      <Script id="onclick-title" strategy='lazyOnload'>
+          {`document.getElementById("title"). innerHTML = 'Navbar'`}
+      </Script>
       <div>
         {data && data.user.fullname}
       </div>
