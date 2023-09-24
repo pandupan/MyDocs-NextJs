@@ -1,6 +1,6 @@
 const AboutPage =()=>{
   return (
-    <div>About Page</div>
+    <div id="title" data-testid="title">About Page</div>
   )
 }
 
